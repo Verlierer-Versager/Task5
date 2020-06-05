@@ -3,9 +3,9 @@ package TreeRealization;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        SimpleTree<String> tree = new SimpleTree<>(s -> s.toString());
+        SimpleTree<Integer> tree = new SimpleTree<>(s -> Integer.parseInt(s));
         tree.fromBracketNotation("1(1(1,2),2(1,2))");
-        tree.task();
+        //tree.task();
         //System.out.println(tree.toStrFunc);
     }
 }

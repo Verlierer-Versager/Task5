@@ -146,7 +146,7 @@ public class SimpleTree<T> {
                 if (iw.index == bracketStr.length() - 1) {
                     throw new Exception(String.format("Ожидалось ')' [%d]", iw.index));
                 }
-                //iw.index++;
+                iw.index++;
             }
         }
         return parentNode;
