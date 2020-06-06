@@ -186,11 +186,11 @@ public class SimpleTree<T> {
         if (parentNode.numberOfChildren() != 0) {
             str.append(toStrFunc.apply(parentNode.value) + "(");
             //str.append('(');
-            for (int i = 0; i < parentNode.numberOfChildren()-1; i++) {
+            for (int i = 0; i < parentNode.numberOfChildren() - 1; i++) {
                 str.append(treeTraversal(parentNode.getChild(i)));
                 str.append(',');
             }
-            str.append(treeTraversal(parentNode.getChild(parentNode.numberOfChildren()-1)));
+            str.append(treeTraversal(parentNode.getChild(parentNode.numberOfChildren() - 1)));
             str.append(')');
         } else {
             str.append(toStrFunc.apply(parentNode.value));
