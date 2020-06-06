@@ -6,6 +6,7 @@ import java.util.function.Function;
 public class SimpleTree<T> {
 
     protected class SimpleTreeNode<T> {
+        public String name;
         public T value;
         public ArrayList<SimpleTreeNode<T>> children;
 
@@ -45,10 +46,10 @@ public class SimpleTree<T> {
 
         private void reverseChildren() {
             ArrayList<SimpleTreeNode<T>> newList = new ArrayList<>();
-            for (int i = children.size()-1; i>=0; i--){
+            for (int i = children.size() - 1; i >= 0; i--) {
                 newList.add(children.get(i));
             }
-            this.children=newList;
+            this.children = newList;
         }
     }
 
@@ -143,11 +144,8 @@ public class SimpleTree<T> {
                     iw.index++;
                     skipSpaces(bracketStr, iw);
                 }
-                if (iw.index == bracketStr.length() - 1) {
-                    throw new Exception(String.format("Ожидалось ')' [%d]", iw.index));
-                }
-                iw.index++;
             }
+            iw.index++;
         }
         return parentNode;
     }
@@ -166,37 +164,37 @@ public class SimpleTree<T> {
     }
 
     private void reverseChildren(SimpleTreeNode<T> parentNode) {
-        if(parentNode.numberOfChildren()!=0){
-            for(int i = 0; i<parentNode.numberOfChildren(); i++){
-                reverseChildren(parentNode.getChild(i));
-            }
-        } else {
-            for(int i = 0; i<parentNode.numberOfChildren(); i++){
+        if (parentNode.numberOfChildren() != 0) {
+            for (int i = 0; i < parentNode.numberOfChildren(); i++) {
                 reverseChildren(parentNode.getChild(i));
             }
             parentNode.reverseChildren();
         }
     }
 
-    public String toString(){
-        /*if (fromStrFunc == null) {
+    public String toBracketNotation() throws Exception {
+        if (toStrFunc == null) {
             throw new Exception("Не определена функция конвертации в строку");
-        }*/
+        }
         StringBuilder str = new StringBuilder();
-        str.append(toStrFunc.apply(root.value) + "(");
+        str.append(treeTraversal(root));
         return str.toString();
     }
 
-    /*private String treeTraversal(SimpleTreeNode<T> parentNode){
+    private String treeTraversal(SimpleTreeNode<T> parentNode) {
         StringBuilder str = new StringBuilder();
-        str.append(toStrFunc.apply(parentNode.value));
-        if(parentNode.numberOfChildren()!=0){
-            str.append('(');
-            for(int i = 0; i<parentNode.numberOfChildren(); i++){
-                treeTraversal(parentNode.getChild(i));
+        if (parentNode.numberOfChildren() != 0) {
+            str.append(toStrFunc.apply(parentNode.value) + "(");
+            //str.append('(');
+            for (int i = 0; i < parentNode.numberOfChildren()-1; i++) {
+                str.append(treeTraversal(parentNode.getChild(i)));
                 str.append(',');
             }
+            str.append(treeTraversal(parentNode.getChild(parentNode.numberOfChildren()-1)));
             str.append(')');
+        } else {
+            str.append(toStrFunc.apply(parentNode.value));
         }
-    }*/
+        return str.toString();
+    }
 }
